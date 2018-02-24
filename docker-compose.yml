@@ -1,0 +1,69 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "2.0"
+services:
+
+    php:
+        build: ./php
+        container_name: server-php
+        #working_dir: /application
+        ports:
+            - "8080:80"
+        volumes:
+            - ./apache2/sites-enabled:/etc/apache2/sites-enabled
+            - ./public:/var/www/html
+            - ./php/log/apache2:/var/log/apache2
+#        - .:/application
+#        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php5/fpm/conf.d/99-overrides.ini
+        networks:
+            server-static-network:
+                ipv4_address: 172.20.128.2
+        # tty: true
+
+    db:
+        image: mysql:5.6
+        container_name: server-mysql
+        volumes:
+            - ./mysql/db_data:/var/lib/mysql
+            - ./mysql/home:/home
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: user
+        networks:
+            server-static-network:
+                ipv4_address: 172.20.128.3
+
+    redis:
+        image: redis
+        container_name: server-redis
+        ports:
+            - '6379:6379'
+        networks:
+            server-static-network:
+                ipv4_address: 172.20.128.4
+
+    # mssql:
+    #     image: microsoft/mssql-server-linux
+    #     container_name: server-mssql
+    #     volumes:
+    #         - ./mssql/var_opt_mssql:/var/opt/mssql
+    #         - ./mssql/var_opt_mssql/data:/var/opt/mssql/data
+    #     environment:
+    #         ACCEPT_EULA: "Y"
+    #         SA_PASSWORD: "server!!!"
+    #     ports:
+    #         - "1433:1433"
+    #     networks:
+    #         static-network:
+    #             ipv4_address: 172.20.128.5
+
+networks:
+    server-static-network:
+        ipam:
+            config:
+                - subnet: 172.20.0.0/16
+                  ip_range: 172.28.5.0/24
