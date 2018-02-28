@@ -1,2 +1,5 @@
- .directory
- 
+.directory
+mysql/db_data/*
+mysql/home/*
+php/log/*
+public/*

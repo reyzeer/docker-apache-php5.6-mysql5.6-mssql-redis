@@ -6,7 +6,7 @@ services:
 
     php:
         build: ./php
-        container_name: "${DOCKER_PREFIX}-php"
+        container_name: "${DOCKER_PREFIX}-http"
         #working_dir: /application
         ports:
             - "8080:80"

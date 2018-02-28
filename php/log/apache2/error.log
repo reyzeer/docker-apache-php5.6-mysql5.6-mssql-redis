@@ -1,0 +1,4 @@
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.20.128.2. Set the 'ServerName' directive globally to suppress this message
+[Wed Feb 28 13:22:45.764317 2018] [core:warn] [pid 8] AH00098: pid file /var/run/apache2/apache2.pid overwritten -- Unclean shutdown of previous Apache run?
+[Wed Feb 28 13:22:45.767244 2018] [mpm_prefork:notice] [pid 8] AH00163: Apache/2.4.18 (Ubuntu) configured -- resuming normal operations
+[Wed Feb 28 13:22:45.767304 2018] [core:notice] [pid 8] AH00094: Command line: '/usr/sbin/apache2 -D FOREGROUND'
