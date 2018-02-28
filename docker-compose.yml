@@ -6,7 +6,7 @@ services:
 
     php:
         build: ./php
-        container_name: server-php
+        container_name: "${DOCKER_PREFIX}-php"
         #working_dir: /application
         ports:
             - "8080:80"
@@ -23,7 +23,7 @@ services:
 
     db:
         image: mysql:5.6
-        container_name: server-mysql
+        container_name: "${DOCKER_PREFIX}-mysql"
         volumes:
             - ./mysql/db_data:/var/lib/mysql
             - ./mysql/home:/home
@@ -39,7 +39,7 @@ services:
 
     redis:
         image: redis
-        container_name: server-redis
+        container_name: "${DOCKER_PREFIX}-redis"
         ports:
             - '6379:6379'
         networks:
