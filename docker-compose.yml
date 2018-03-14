@@ -12,7 +12,7 @@ services:
             - "${HTTP_PORT}:80"
         volumes:
             - ./apache2/sites-enabled:/etc/apache2/sites-enabled
-            - ./public:/var/www/html
+            - "${HTTP_DIR}:/var/www/html"
             - ./php/log/apache2:/var/log/apache2
 #        - .:/application
 #        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php5/fpm/conf.d/99-overrides.ini
