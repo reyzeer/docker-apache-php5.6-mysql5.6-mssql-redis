@@ -9,7 +9,7 @@ services:
         container_name: "${DOCKER_PREFIX}-http"
         #working_dir: /application
         ports:
-            - "8080:80"
+            - "${HTTP_PORT}:80"
         volumes:
             - ./apache2/sites-enabled:/etc/apache2/sites-enabled
             - ./public:/var/www/html
@@ -18,8 +18,8 @@ services:
 #        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php5/fpm/conf.d/99-overrides.ini
         networks:
             server-static-network:
-                ipv4_address: 172.20.128.2
-        # tty: true
+                ipv4_address: ${HTTP_DOCKER_IP}
+        tty: true
 
     db:
         image: mysql:5.6
@@ -29,22 +29,22 @@ services:
             - ./mysql/home:/home
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: db
-            MYSQL_USER: user
-            MYSQL_PASSWORD: user
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DB}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         networks:
             server-static-network:
-                ipv4_address: 172.20.128.3
+                ipv4_address: ${MYSQL_DOCKER_IP}
 
     redis:
         image: redis
         container_name: "${DOCKER_PREFIX}-redis"
         ports:
-            - '6379:6379'
+            - "${REDIS_PORT}:6379"
         networks:
             server-static-network:
-                ipv4_address: 172.20.128.4
+                ipv4_address: ${REDIS_DOCKER_IP}
 
     # mssql:
     #     image: microsoft/mssql-server-linux
@@ -62,8 +62,8 @@ services:
     #             ipv4_address: 172.20.128.5
 
 networks:
-    server-static-network:
+    ${NETWORK_NAME}:
         ipam:
             config:
-                - subnet: 172.20.0.0/16
-                  ip_range: 172.28.5.0/24
+                - subnet: ${NETWORK_SUBNET}
+                  ip_range: ${NETWORK_IP_RANGE}
