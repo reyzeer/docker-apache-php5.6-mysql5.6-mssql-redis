@@ -3,3 +3,4 @@ mysql/db_data/*
 mysql/home/*
 php/log/*
 public/*
+php/log/*

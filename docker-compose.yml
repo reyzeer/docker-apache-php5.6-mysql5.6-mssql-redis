@@ -17,7 +17,7 @@ services:
 #        - .:/application
 #        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php5/fpm/conf.d/99-overrides.ini
         networks:
-            server-static-network:
+            dapmmr-static-network:
                 ipv4_address: ${HTTP_DOCKER_IP}
         tty: true
 
@@ -29,12 +29,12 @@ services:
             - ./mysql/home:/home
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            MYSQL_DATABASE: ${MYSQL_DB}
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASS}"
+            MYSQL_DATABASE: "${MYSQL_DB}"
+            MYSQL_USER: "${MYSQL_USER}"
+            MYSQL_PASSWORD: "${MYSQL_PASS}"
         networks:
-            server-static-network:
+            dapmmr-static-network:
                 ipv4_address: ${MYSQL_DOCKER_IP}
 
     redis:
@@ -43,7 +43,7 @@ services:
         ports:
             - "${REDIS_PORT}:6379"
         networks:
-            server-static-network:
+            dapmmr-static-network:
                 ipv4_address: ${REDIS_DOCKER_IP}
 
     # mssql:
@@ -62,7 +62,7 @@ services:
     #             ipv4_address: 172.20.128.5
 
 networks:
-    ${NETWORK_NAME}:
+    dapmmr-static-network:
         ipam:
             config:
                 - subnet: ${NETWORK_SUBNET}
