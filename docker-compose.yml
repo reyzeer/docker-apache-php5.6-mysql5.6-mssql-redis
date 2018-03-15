@@ -29,10 +29,10 @@ services:
             - ./mysql/home:/home
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASS}"
-            MYSQL_DATABASE: "${MYSQL_DB}"
-            MYSQL_USER: "${MYSQL_USER}"
-            MYSQL_PASSWORD: "${MYSQL_PASS}"
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASS}
+            - MYSQL_DATABASE=${MYSQL_DB}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASS}
         networks:
             dapmmr-static-network:
                 ipv4_address: ${MYSQL_DOCKER_IP}
